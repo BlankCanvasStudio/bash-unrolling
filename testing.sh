@@ -1,10 +1,10 @@
-localgo() {
-	echo he
-	re
+yep() {
+echo global vars: $i $j
+echo functional vars: $1
 }
-for a in $(echo here)
-do
-	localgo
-	cd $a
+for i in 1 2; do
+    for j in a b; do
+        echo $i $j foo
+        yep "$i .. $j"
+    done
 done
-local var = 'C'
