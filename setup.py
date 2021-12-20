@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="bashunrolling",
+    name="bashunroll",
     version="0.1",
     author="Spencer Stingley",
     author_email="sstingle@usc.edu",
