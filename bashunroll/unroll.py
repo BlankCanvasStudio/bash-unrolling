@@ -29,7 +29,14 @@ def basic_node_unroll(nodes, function_dict = {}, command_alias_list={}):
 		elif node.kind == 'function':
 			function_dict = bashparse.build_function_dictionary(node, function_dict)
 		elif hasattr(node, 'parts'):
-			unrolled_nodes += basic_node_unroll(node.parts)
+			if node.kind == 'pipeline':
+			# Pipelined nodes shoud stay together
+				for i, part in enumerate(node.parts):
+					if part.kind != 'pipe': node.parts[i] = basic_node_unroll(part)[0]
+				unrolled_nodes+= [ node ]
+				print('here: ', unrolled_nodes)
+			else:
+				unrolled_nodes += basic_node_unroll(node.parts)
 		elif hasattr(node, 'list'):
 			unrolled_nodes += basic_node_unroll(node.list)
 	return unrolled_nodes
