@@ -36,10 +36,14 @@ def basic_node_unroll(nodes, function_dict = {}, command_alias_list={}):
 
 
 def replacement_based_unroll(nodes, var_list={}):
-	function_dict = bashparse.build_function_dictionary(nodes)
-	unrolled_nodes = bashparse.replace_functions(nodes, function_dict)
+	# The ordering of this function is important. Tread lightly
 	var_list = bashparse.update_variable_list_with_node(nodes, var_list)
-	replaced_nodes = bashparse.substitute_variables(unrolled_nodes, var_list)
+	replaced_nodes = bashparse.substitute_variables(nodes, var_list)
+	
+	function_dict = bashparse.build_function_dictionary(replaced_nodes)
+	replaced_nodes = bashparse.replace_functions(replaced_nodes, function_dict)
+	
 	unrolled_nodes = basic_node_unroll(replaced_nodes)
+	
 	return unrolled_nodes
 
