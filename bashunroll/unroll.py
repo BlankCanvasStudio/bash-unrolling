@@ -34,7 +34,6 @@ def basic_node_unroll(nodes, function_dict = {}, command_alias_list={}):
 				for i, part in enumerate(node.parts):
 					if part.kind != 'pipe': node.parts[i] = basic_node_unroll(part)[0]
 				unrolled_nodes+= [ node ]
-				print('here: ', unrolled_nodes)
 			else:
 				unrolled_nodes += basic_node_unroll(node.parts)
 		elif hasattr(node, 'list'):
