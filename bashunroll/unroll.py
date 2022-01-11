@@ -12,9 +12,10 @@ def basic_node_unroll(nodes, function_dict = {}, command_alias_list={}):
 			unrolled_nodes += basic_node_unroll(node.list, function_dict, command_alias_list)
 		elif node.kind == 'for':
 			if len(node.parts) > 4:
-				command_nodes = bashparse.return_paths_to_node_type(node.parts[4:], 'command')
-				for command in command_nodes:
-					unrolled_nodes += basic_node_unroll(command.node, function_dict, command_alias_list)
+				unrolled_nodes += basic_node_unroll(node.parts[4:])
+				# command_nodes = bashparse.return_paths_to_node_type(node.parts[4:], 'command')
+				# for command in command_nodes:
+				# 	unrolled_nodes += basic_node_unroll(command.node, function_dict, command_alias_list)
 		elif node.kind == 'if':
 			unrolled_nodes += [ node ]
 		elif node.kind == 'command':
